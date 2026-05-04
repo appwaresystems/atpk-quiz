@@ -27,7 +27,7 @@ export default function HomePage() {
               ԱՏՊՔ
             </h1>
             <h2 className="text-xl text-gray-600 mb-4">
-              Ծրագրավորման բաժնի քվիզ
+              Ծրագրավորման բաժնի քուիզ
             </h2>
             <div className="h-1 w-20 bg-indigo-500 mx-auto rounded-full"></div>
           </div>
@@ -60,7 +60,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 text-center text-sm text-gray-500">
-            <p>Քվիզը բաղկացած է 10 հարցից</p>
+            <p>քուիզը բաղկացած է 10 հարցից</p>
             <p>Պատասխանեք բոլոր հարցերին</p>
           </div>
         </div>

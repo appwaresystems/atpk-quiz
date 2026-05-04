@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: 'ԱՏՊՔ - Ծրագրավորման բաժնի քվիզ',
+  title: 'ԱՏՊՔ - Ծրագրավորման բաժնի քուիզ',
   description: 'Որոշեք՝ արդյոք հարմար եք ծրագրավորման բաժնի համար',
 }
 export default function RootLayout({ children }) {

@@ -24,20 +24,22 @@ export default function QuizComponent() {
 
     const handleAnswer = (selectedIndex) => {
         setSelectedOption(selectedIndex)
-        const isCorrect = selectedIndex === questions[currentQuestion].correctAnswer
+
+        const isCorrect =
+            selectedIndex === questions[currentQuestion].correctAnswer
 
         setTimeout(() => {
             const newAnswers = [...answers, selectedIndex]
             setAnswers(newAnswers)
 
             if (isCorrect) {
-                setScore(score + 1)
+                setScore(prev => prev + 1)
             }
 
             setSelectedOption(null)
 
             if (currentQuestion + 1 < totalQuestions) {
-                setCurrentQuestion(currentQuestion + 1)
+                setCurrentQuestion(prev => prev + 1)
             } else {
                 setIsFinished(true)
             }
@@ -66,21 +68,27 @@ export default function QuizComponent() {
     }
 
     if (isFinished) {
+        let message = ''
+
+        if (score >= 8 && score <= 10) {
+            message =
+                "Դու ծնվել ես ծրագրավորող: Քո ուղեղն աշխատում է ալգորիթմներով: Սպասում ենք քեզ մեր լսարանում"
+        } else if (score >= 5 && score <= 7) {
+            message =
+                "Դու ստեղծագործ մարդ ես: Ծրագրավորումը քեզ կօգնի քո գաղափարները դարձնել իրականություն: Արի՛, կսովորեցնենք"
+        } else {
+            message = "Սկզբում կարող է դժվար թվալ, բայց մի հանձնվիր՝ դու հաստատ կկարողանաս։ Սպասում ենք քեզ ՏՀՏ բաժնում"
+        }
+
         const percentage = (score / totalQuestions) * 100
-        const isHighScore = percentage >= 70
-        const message = isHighScore
-            ? "Դուք համապատասխանում եք ծրագրավորման բաժնին"
-            : "Խորհուրդ է տրվում ընտրել այլ ուղղություն"
 
         return (
             <div className="flex items-center justify-center min-h-[80vh]">
                 <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl w-full">
                     <div className="text-center mb-8">
-                        <div className="text-6xl mb-4">
-                            {isHighScore ? "🎉" : "💪"}
-                        </div>
+                        <div className="text-6xl mb-4">🎉</div>
                         <h1 className="text-3xl font-bold text-gray-800 mb-2">
-                            քուիզն ավարտված է
+                            Քվիզն ավարտված է
                         </h1>
                         <div className="h-1 w-20 bg-indigo-500 mx-auto rounded-full"></div>
                     </div>
@@ -94,13 +102,20 @@ export default function QuizComponent() {
                                 <span className="font-semibold">Արդյունք՝</span> {score} / {totalQuestions}
                             </p>
                             <p className="text-lg text-gray-700 mt-2">
-                                <span className="font-semibold">Տոկոսային հարաբերություն՝</span> {percentage.toFixed(1)}%
+                                <span className="font-semibold">Տոկոսային հարաբերություն՝</span>{' '}
+                                {percentage.toFixed(1)}%
                             </p>
                         </div>
 
-                        <div className={`text-center p-6 rounded-xl ${
-                            isHighScore ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                        }`}>
+                        <div
+                            className={`text-center p-6 rounded-xl ${
+                                score >= 8
+                                    ? 'bg-green-100 text-green-800'
+                                    : score >= 5
+                                        ? 'bg-yellow-100 text-yellow-800'
+                                        : 'bg-red-100 text-red-800'
+                            }`}
+                        >
                             <p className="text-xl font-semibold">{message}</p>
                         </div>
 
@@ -109,7 +124,7 @@ export default function QuizComponent() {
                                 onClick={handleRestart}
                                 className="flex-1 bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
                             >
-                                Կրկին անցնել քուիզը
+                                Կրկին անցնել քվիզը
                             </button>
                             <button
                                 onClick={handleExit}
@@ -125,38 +140,42 @@ export default function QuizComponent() {
     }
 
     const currentQ = questions[currentQuestion]
-    const progress = ((currentQuestion) / totalQuestions) * 100
+    const progress = (currentQuestion / totalQuestions) * 100
 
     return (
         <div className="flex items-center justify-center min-h-[80vh]">
             <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-3xl w-full">
-                {/* Progress Bar */}
+
+                {/* Progress */}
                 <div className="mb-6">
                     <div className="flex justify-between text-sm text-gray-600 mb-2">
-                        <span>Հարց {currentQuestion + 1} / {totalQuestions}</span>
+                        <span>
+                            Հարց {currentQuestion + 1} / {totalQuestions}
+                        </span>
                         <span>Մասնակից՝ {userName}</span>
                     </div>
+
                     <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div
                             className="h-full bg-indigo-600 transition-all duration-300 rounded-full"
                             style={{ width: `${progress}%` }}
-                        ></div>
+                        />
                     </div>
                 </div>
 
                 {/* Question */}
-                <div className="mb-8">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                        {currentQ.question}
-                    </h2>
-                </div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                    {currentQ.question}
+                </h2>
 
                 {/* Options */}
                 <div className="space-y-3 mb-8">
                     {currentQ.options.map((option, index) => (
                         <button
                             key={index}
-                            onClick={() => !selectedOption && handleAnswer(index)}
+                            onClick={() =>
+                                selectedOption === null && handleAnswer(index)
+                            }
                             disabled={selectedOption !== null}
                             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                                 selectedOption === null
@@ -165,38 +184,18 @@ export default function QuizComponent() {
                                         ? index === currentQ.correctAnswer
                                             ? 'border-green-500 bg-green-50'
                                             : 'border-red-500 bg-red-50'
-                                        : index === currentQ.correctAnswer && selectedOption !== null
+                                        : index === currentQ.correctAnswer
                                             ? 'border-green-500 bg-green-50'
                                             : 'border-gray-200 opacity-50'
                             }`}
                         >
-                            <div className="flex items-center">
-                                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mr-3 ${
-                                    selectedOption === null
-                                        ? 'border-gray-400'
-                                        : selectedOption === index
-                                            ? index === currentQ.correctAnswer
-                                                ? 'border-green-500 bg-green-500'
-                                                : 'border-red-500 bg-red-500'
-                                            : index === currentQ.correctAnswer && selectedOption !== null
-                                                ? 'border-green-500 bg-green-500'
-                                                : 'border-gray-300'
-                                }`}>
-                                    {selectedOption !== null && (selectedOption === index || index === currentQ.correctAnswer) && (
-                                        <div className="text-white text-xs">
-                                            {index === currentQ.correctAnswer ? '✓' : selectedOption === index ? '✗' : ''}
-                                        </div>
-                                    )}
-                                </div>
-                                <span className="text-gray-700">{option}</span>
-                            </div>
+                            {option}
                         </button>
                     ))}
                 </div>
 
-                {/* Info */}
                 <div className="text-center text-sm text-gray-500">
-                    <p>Ընտրեք ճիշտ պատասխանը</p>
+                    Ընտրեք ճիշտ պատասխանը
                 </div>
             </div>
         </div>

@@ -88,7 +88,7 @@ export default function QuizComponent() {
                     <div className="text-center mb-8">
                         <div className="text-6xl mb-4">🎉</div>
                         <h1 className="text-3xl font-bold text-gray-800 mb-2">
-                            Քվիզն ավարտված է
+                            Քուիզն ավարտված է
                         </h1>
                         <div className="h-1 w-20 bg-indigo-500 mx-auto rounded-full"></div>
                     </div>
@@ -124,7 +124,7 @@ export default function QuizComponent() {
                                 onClick={handleRestart}
                                 className="flex-1 bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
                             >
-                                Կրկին անցնել քվիզը
+                                Կրկին անցնել քուիզը
                             </button>
                             <button
                                 onClick={handleExit}

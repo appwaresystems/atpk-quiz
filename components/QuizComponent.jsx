@@ -177,7 +177,7 @@ export default function QuizComponent() {
                                 selectedOption === null && handleAnswer(index)
                             }
                             disabled={selectedOption !== null}
-                            className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
+                            className={`w-full text-left p-4 rounded-xl border-2 transition-all text-black ${
                                 selectedOption === null
                                     ? 'border-gray-400 bg-gray-50 hover:bg-gray-100 hover:border-indigo-600'
                                     : selectedOption === index

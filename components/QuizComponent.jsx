@@ -179,7 +179,7 @@ export default function QuizComponent() {
                             disabled={selectedOption !== null}
                             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                                 selectedOption === null
-                                    ? 'border-gray-300 hover:border-indigo-500 hover:bg-indigo-50'
+                                    ? 'border-gray-400 bg-gray-50 hover:bg-gray-100 hover:border-indigo-600'
                                     : selectedOption === index
                                         ? index === currentQ.correctAnswer
                                             ? 'border-green-500 bg-green-50'

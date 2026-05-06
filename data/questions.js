@@ -12,7 +12,7 @@ export const questions = [
     },
     {
         id: 2,
-        question: "Ինչ թիվն է հաջորդը՝ 2, 4, 8, 16, ?",
+        question: "Որ թիվն է հաջորդը՝ 2, 4, 8, 16, ?",
         options: [
             "18",
             "24",

@@ -27,7 +27,7 @@ export default function HomePage() {
               ԱՏՊՔ
             </h1>
             <h2 className="text-xl text-gray-600 mb-4">
-              Ծրագրավորման բաժնի Քուիզ
+              Ծրագրավորման բաժնի Quiz
             </h2>
             <div className="h-1 w-20 bg-indigo-500 mx-auto rounded-full"></div>
           </div>
